@@ -5,7 +5,7 @@ fn main() {
 
     // Example of a move
     let s1 = String::from("Hello, World!");
-    let s2 = s1;
+    let _s2 = s1;  // Prefixed s2 with _ to get rid of the warning
     // s1 has now been invalidated
 
     // println!("{:?}", s1); will no longer work
@@ -27,7 +27,27 @@ fn main() {
 
     // Try using x again
     println!("The value of x is: {:?}", x); // Works!
-}
+
+    let a_main = String::from("Hello Universe");
+    let a_main_size = reference(&a_main);
+    // Trying to see if a_main is still owned by main
+    println!("The value of a_main is: {:?} and its size is: {:?}", a_main, a_main_size);  // This works!
+
+    // Mutable references
+    let mut x = String::from("Hello Milky Way!");
+    modify(&mut x);
+    println!("The modified string is: {:?}", x);
+
+    // You can only have one mutable reference to a piece of data in a particular scope
+    let r1 = &mut x;
+    let r2 = &mut x;
+
+    // The compiler throws an error only when the variables are used
+    // println!("r1: {:?}, r2 {:?}", r1, r2); will throw an error
+    // This way Rust won't even compile code which can lead to data races!
+
+} // End of main
+
 
 fn takes_ownership(some_string: String) -> String{
 	println!("{:?}", some_string);
@@ -36,4 +56,22 @@ fn takes_ownership(some_string: String) -> String{
 
 fn makes_copy(some_int: i32){
 	println!("{:?}", some_int);
+}
+
+// Function that takes in a reference
+fn reference(a: &String) -> usize{
+	a.len()
+}
+
+// Function that tries to modify a reference which is not mutable does not work
+
+/*
+fn modify(s: &String){
+	s.push_str(" Here I am!");
+}
+*/
+
+// Use a function that has a mutable variable as input instead
+fn modify(s: &mut String){
+	s.push_str(" Here I am!")
 }
