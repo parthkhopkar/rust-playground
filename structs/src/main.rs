@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug)]  // This trait enables prettyprinting of the struct
 struct User {
 	username: String,
 	email: String,
@@ -31,4 +31,16 @@ fn main() {
 	// All attributes in the instance will be mut. Rust doesn't allow you to only mark a few attrs as mut
 	let mut user1 = build_user(String::from("janedoe"), String::from("janedoe@aol.com"));
 	println!("{:?}", user1);
-}
+
+	let user2 = User{
+		username: String::from("alyxhalflife"),
+		email: String::from("alyx@valve.com"),
+		..user1
+	};
+
+	println!("{:?}", user2);
+
+	let str1 = "Hello, World!";
+	println!("{:?}", str1);
+
+}  // End of main
