@@ -40,7 +40,10 @@ fn main() {
 
 	println!("{:?}", user2);
 
-	let str1 = "Hello, World!";
-	println!("{:?}", str1);
+	// Tuple structs
+	#[derive(Debug)]
+	struct Point(i32, i32, i32);
+	let p1 = Point(1,1,1);
+	println!("{:?}", p1);
 
 }  // End of main
