@@ -39,12 +39,21 @@ fn main() {
     println!("The modified string is: {:?}", x);
 
     // You can only have one mutable reference to a piece of data in a particular scope
-    let r1 = &mut x;
-    let r2 = &mut x;
+    let _r1 = &mut x;
+    let _r2 = &mut x;
 
     // The compiler throws an error only when the variables are used
     // println!("r1: {:?}, r2 {:?}", r1, r2); will throw an error
     // This way Rust won't even compile code which can lead to data races!
+
+    // A look at dangling references
+    // Rust prevents any kind of dangling references
+    // let &r = dangle(); throws an error
+
+
+    // Exploring slice type
+    let slice = first_word(&a_main);
+    println!("The first word is: {:?}", slice);
 
 } // End of main
 
@@ -74,4 +83,27 @@ fn modify(s: &String){
 // Use a function that has a mutable variable as input instead
 fn modify(s: &mut String){
 	s.push_str(" Here I am!")
+}
+
+// This function returns a dangling reference which causes issues with the Rust compiler
+/*
+*	fn dangle() -> &String{
+*		let s = String::from("Hello")
+*
+*		&s
+*	}
+*/
+
+// A function which returns the first word it finds in a sentence and rturns the end index
+fn first_word(s: &String) -> &str{
+	let bytes = s.as_bytes();
+
+	for (i,&item) in bytes.iter().enumerate(){
+		if item == b' '{
+			return &s[0..i];
+		}
+	}
+	// If no space is found after traversing the string, the length of the string is returned
+	&s[..]
+
 }
