@@ -3,7 +3,7 @@ enum Coin {
 	Penny,
 	Nickel,
 	Dime,
-	Quarter,
+	Quarter(String),
 }
 
 fn coin_value(coin: &Coin) -> u8 {
@@ -11,7 +11,10 @@ fn coin_value(coin: &Coin) -> u8 {
 		Coin::Penny => 1,
 		Coin::Nickel => 5,
 		Coin::Dime => 10,
-		Coin::Quarter => 25,
+		Coin::Quarter(state) => {
+			println!("You have a Quarter from the US state of {:?}", state);
+			25
+		},
 	}
 }
 
@@ -20,4 +23,8 @@ fn main() {
     let dime = Coin::Dime;
     println!("{:?}", coin_value(&dime));
     println!("{:?}", dime);
+
+    let quarter = Coin::Quarter(String::from("Arizona"));
+    println!("{:?}", coin_value(&quarter));
+    println!("{:?}", quarter);
 }
