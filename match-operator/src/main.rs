@@ -25,6 +25,14 @@ fn detect(x: Option<i32>) -> bool {
 	}
 }
 
+fn coin_value_with_placeholder(coin: &Coin) -> u8 {
+	match coin {
+		Coin::Penny => 1,
+		Coin::Nickel => 5,
+		_ => 0,
+	}
+}
+
 fn main() {
     println!("Hello, world!");
     let dime = Coin::Dime;
@@ -40,5 +48,10 @@ fn main() {
     println!("Variable x is a number?: {:?}", detect(x));
     let x: Option<i32> = None;
     println!("Variable x is a number?: {:?}", detect(x));
+
+    // Use placeholder value to only match Penny and Nickel
+    let penny = Coin::Penny;
+    println!("{:?}", coin_value_with_placeholder(&penny));
+    println!("{:?}", penny);
 
 }
