@@ -54,4 +54,12 @@ fn main() {
     println!("{:?}", coin_value_with_placeholder(&penny));
     println!("{:?}", penny);
 
+    // Using if let to just match one arm
+    let state = String::from("Arizona");
+    if let Coin::Quarter(state) = quarter{
+    	println!("You have a quarter from the state of {:?}", state);
+    } else {
+    	println!("Your have a coin other than a Quarter");
+    }
+
 }
