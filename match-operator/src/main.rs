@@ -18,6 +18,13 @@ fn coin_value(coin: &Coin) -> u8 {
 	}
 }
 
+fn detect(x: Option<i32>) -> bool {
+	match x {
+		Some(x) => true,
+		None => false,
+	}
+}
+
 fn main() {
     println!("Hello, world!");
     let dime = Coin::Dime;
@@ -27,4 +34,11 @@ fn main() {
     let quarter = Coin::Quarter(String::from("Arizona"));
     println!("{:?}", coin_value(&quarter));
     println!("{:?}", quarter);
+
+    // match with Option<T> using detect function
+    let x = Some(10);
+    println!("Variable x is a number?: {:?}", detect(x));
+    let x: Option<i32> = None;
+    println!("Variable x is a number?: {:?}", detect(x));
+
 }
